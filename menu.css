@@ -1,0 +1,19 @@
+.titulo {
+    text-align: center;
+    font-size: 8rem;
+}
+header{
+    text-align: center;
+}
+
+body{
+    text-align: center;
+}
+.espacio {
+    margin-top: 8%;
+    margin-bottom: 5%;
+}
+header>*{
+    margin-left: 15%;
+    margin-right: 15%;
+}
