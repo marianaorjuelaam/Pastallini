@@ -1,3 +1,22 @@
+@font-face {
+    font-family: lobster;
+    src: url(Lobster-Regular.ttf);
+}
+*{
+    font-family: lobster;
+    font-weight: normal;
+}
+
+amarillo{
+
+}
+
+cafe{
+    
+}
+
+
+
 .box{
     border-color: #000000;
     border-style: solid;
