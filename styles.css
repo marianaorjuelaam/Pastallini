@@ -1,0 +1,42 @@
+@font-face {
+    font-family: lobster;
+    src: url(Lobster-Regular.ttf);
+}
+
+* {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 8rem;
+}
+header section {
+    text-align: -webkit-center;
+}
+.volver{
+    text-decoration: none;
+}
+.carrito {
+    width: 10%;
+}
+.titulo {
+    font-size: -webkit-xxx-large;
+    font-family: lobster;
+    margin-top: 0px;
+}
+#volver {
+    color: #FFFFFF;
+    background-color: #3F8C25;
+    cursor: pointer;
+    padding: 0.5rem 1.3rem;
+    border-radius: 10%;
+}
+
+#volver:hover {
+    border-radius: 20%;
+    background-color: #F3C274;
+    color: #C42D28;
+}
