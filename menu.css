@@ -136,9 +136,11 @@ header>*{
 ul a {
     color: #FFFFFF;
     background-color: #3F8C25;
+
     cursor: pointer;
-    padding: 0.5rem 8.3rem;
-}
+    padding-left: 5%;
+    padding-right: 5%;
+    
 
 #entradas {
     border-radius: 40%;
@@ -148,4 +150,5 @@ ul a {
 p {
     padding-left: 5%;
     padding-right: 5%;
+    
 }
