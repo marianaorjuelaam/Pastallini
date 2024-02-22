@@ -14,7 +14,14 @@ document.addEventListener('DOMContentLoaded', function() {
         window.location.href = 'carrito.html';
     });
 });
+//enviar
+function pedir() {
+    // Borra el contenido de la lista de compras
+    document.getElementById('compras').innerHTML = '';
 
+    // Muestra el mensaje de confirmación
+    document.getElementById('mensajeConfirmacion').style.display = 'block';
+}
 
 function addCarrito() {
 
