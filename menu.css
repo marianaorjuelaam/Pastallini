@@ -7,12 +7,24 @@
     font-weight: normal;
 }
 
-amarillo{
-
+.rojo{
+    color: red;
 }
 
-cafe{
-    
+.verde{
+    color: green;
+}
+
+.blanco{
+    color: white;
+}
+
+.amarillo{
+    background-color: #f39f18;
+}
+
+.cafe{
+    background-color: #a18262;
 }
 
 
