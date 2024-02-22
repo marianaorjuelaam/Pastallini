@@ -75,6 +75,7 @@ footer ul {
     display: flex;
     padding-left: 0px;
     align-items: flex-start;
+    justify-content: center;
 }
 
 footer li {
