@@ -57,6 +57,7 @@ header section {
     width: 11%;
     display: block;
     margin: auto;
+    
 }
 
 ul {
@@ -97,3 +98,33 @@ footer {
 .carrito {
     cursor: pointer;
 }
+
+.rojo{
+    color: red;
+}
+
+.verde{
+    color: green;
+}
+
+.blanco{
+    color: white;
+}
+
+.amarillo{
+    background-color: #f39f18;
+}
+
+.cafe{
+    background-color: #a18262;
+}
+
+.box{
+    border-color: #000000;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10%;
+}
+
