@@ -81,6 +81,7 @@ main div {
 .descripcion {
     margin-top: 0px;
     padding-left: 2%;
+    font-size: 2vw;
 }
 
 .cost {

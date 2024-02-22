@@ -23,15 +23,5 @@ function pedir() {
     document.getElementById('mensajeConfirmacion').style.display = 'block';
 }
 
-function addCarrito() {
 
-    window.location.href = 'carrito.html';
 
-    const li = document.createElement('li');
-    li.id = 'jugoTrad';
-
-    li.innerHTML = "hola"
-
-    const lugar = document.getElementById('compras');
-    lugar.appendChild(li);  
-}
