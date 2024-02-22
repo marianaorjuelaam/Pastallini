@@ -2,9 +2,103 @@
     font-family: lobster;
     src: url(Lobster-Regular.ttf);
 }
+
 *{
-    font-family: lobster;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: normal;
+}
+
+
+body {
+    padding: 10px;
+    margin: 10%;
+    text-align: center;
+    
+}
+
+article {
+    background-color: white;
+    border-color: #000000;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.titulo {
+    font-family: lobster;
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+#principal {
+    font-size: 500%;
+    color: #337657;
+}
+
+#principalMenu {
+    color: #B63D34;
+    font-size: 500%;
+    margin-top: 8%;
+}
+
+.logo {
+    width: 20%;
+}
+
+header{
+    text-align: center;
+}
+
+.espacio {
+    margin-top: 8%;
+    margin-bottom: 5%;
+}
+
+#menu {
+    font-family: lobster;
+    text-align: center;
+    padding-left: 0px;
+    margin-top: 5%;
+}
+
+li{
+    list-style: none;
+    padding-bottom: 5%;
+}
+
+footer {
+    padding-top: 5%;
+}
+
+footer ul {
+    display: flex;
+    padding-left: 0px;
+    align-items: flex-start;
+}
+
+footer li {
+    display: grid;
+    justify-items: center;
+    gap: 10%;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 200%;
+    gap: 10%;
+}
+
+.avatar {
+    width: 60%;
+    height: 88%;
+    border-radius: 50%;
+}
+
+#creadores {
+    font-size: medium;
 }
 
 .rojo{
@@ -19,61 +113,38 @@
     color: white;
 }
 
-.amarillo{
+html {
     background-color: #f39f18;
 }
 
-.cafe{
-    background-color: #a18262;
-}
-
-
-
-.box{
-    border-color: #000000;
-    border-style: solid;
-    border-width: 1px;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10%;
-}
-
-.titulo {
-    text-align: center;
-    font-size: 8rem;
-}
-header{
-    text-align: center;
-}
-
-body{
-    text-align: center;
-}
-.espacio {
-    margin-top: 8%;
-    margin-bottom: 5%;
-}
-h1.espacio2{
-    margin-top: 15%;
-}
 header>*{
     margin-left: 15%;
     margin-right: 15%;
 }
 
-ul {
-    margin-left: 15%;
-    margin-right: 15%;
-    text-align: center;
+#propuesta {
+    margin-top: 10%;
+    font-size: 200%;
 }
 
-li{
-    list-style: none;
-    margin-top: 15%;
-    margin-bottom: 15%;
+#invitacion {
+    font-family: lobster;
+    font-size: larger;
 }
-a{
-    text-decoration: none;
-    color: black;
-    font-size: 7rem;
+
+ul a {
+    color: #FFFFFF;
+    background-color: #3F8C25;
+    cursor: pointer;
+    padding: 0.5rem 8.3rem;
+}
+
+#entradas {
+    border-radius: 40%;
+    background-image: url();
+}
+
+p {
+    padding-left: 5%;
+    padding-right: 5%;
 }
