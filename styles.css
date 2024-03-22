@@ -63,7 +63,20 @@ header section {
 footer {
     background-color: #F07760;
 }
+
 #mensajeConfirmacion{
     font-size: xx-large;
     font-weight: bolder;
+}
+
+.datosPersonales {
+    background-color: #8d4539;
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    width: 15rem;
+    margin-top: 2rem;
+    top: 1rem;
+    right: 1rem;
+    height: 90%;
 }

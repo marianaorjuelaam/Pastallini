@@ -6,7 +6,6 @@
     <title>Carrito de compras</title>
     <link rel="shortcut icon" href="imagenes/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="styles.css">
-    <script src="comidas.js"></script>
 </head>
 <body>
     <header>
@@ -17,18 +16,28 @@
         <img src="imagenes/logo.png" alt="logo" class="carrito">
     </header>
     <main>
-        <ul id="compras">
-
-
-
-        </ul>
+        <ul id="compras"></ul>
         <p id="mensajeConfirmacion" style="display:none;">Tu pedido ha sido enviado con exito!!</p>
-        <button class="pedido" onclick="pedir()">
-            Hacer pedido
-        </button>
     </main>
+    <aside class="datosPersonales">
+        <h2>datosPersonales</h2>
+        <form action="index.html" method="post">
+            <h4>A continuación, indique sus datos personales para poder enviarle el pedido.</h4>    
+            <ul>
+                <li><label for="nombre">Nombre: </label>
+                        <input class="input" type="text" name="nombre" id="nombre" placeholder="Su nombre y apellidos"></li>
+                <li><label for="telefono">teléfono: </label>
+                    <input class="input" type="number" name="telefono" id="phone" placeholder="Su teléfono"></li>
+                <li><label for="direccion">Dirección:</label>
+                    <textarea class="input" placeholder="Write your contact message here" name="dirección" required></textarea></li>
+            </ul>
+            <button id="send" type="submit" class="pedido" onclick="pedir()">Hacer pedido</button>
+        </form>
+    </aside>
     <footer>
         <img src="imagenes/logo.png" alt="logo restaurante" class="logo"/>
     </footer>
+    
+    <script src="comidas.js"></script>
 </body>
 </html>

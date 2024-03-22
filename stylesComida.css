@@ -17,9 +17,11 @@ header {
 header section {
     text-align: -webkit-center;
 }
+
 .volver{
     text-decoration: none;
 }
+
 .carrito {
     width: 10%;
 }
@@ -81,7 +83,7 @@ main div {
 .descripcion {
     margin-top: 0px;
     padding-left: 2%;
-    font-size: 2vw;
+    font-size: 110%;
 }
 
 .cost {

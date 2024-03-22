@@ -13,7 +13,6 @@ body {
     padding: 10px;
     margin: 10%;
     text-align: center;
-    
 }
 
 article {
@@ -29,7 +28,16 @@ article {
     text-align: center;
     margin-top: 0px;
     margin-bottom: 0px;
-    
+}
+
+.categ {
+    color: #FFFFFF;
+    background-color: #3F8C25;
+}
+
+.categ:hover {
+    background-color: #F3C274;
+    color: #337657;
 }
 
 #principal {
@@ -126,32 +134,44 @@ header>*{
 
 #propuesta {
     margin-top: 10%;
-    font-size: 4vw;
 }
 
 #invitacion {
     font-family: lobster;
-    font-size: larger;
-    font-size: 3vw;
+    color: #265517;
 }
 
 ul a {
-    color: #FFFFFF;
-    background-color: #3F8C25;
-
     cursor: pointer;
     padding-left: 5%;
     padding-right: 5%;
-    
 }
+
+.carritoC {
+    font-size: 100%;
+    border-radius: 1rem;
+    background-color: #F3C274;
+    color: #C42D28;
+}
+
+.carritoC:hover {
+    background-color: #B63D34;
+    color: #FFFFFF;
+}
+
 #entradas {
     border-radius: 40%;
-    background-image: url();
+}
+
+h2 {
+    padding-left: 5%;
+    padding-right: 5%;
+    font-size: 7vw;
 }
 
 p {
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
     font-size: 3vw;
 }
 
@@ -159,3 +179,18 @@ footer > {
     font-size: 2vw;
 }
 
+@media(min-width: 900px) {
+    p {
+        font-size: 1.8rem;
+    }
+
+    .carritoC {
+        font-size: 3rem;
+    }
+}
+
+@media(max-width: 900px) {
+    p {
+        font-size: 1.8rem;
+    }
+}
