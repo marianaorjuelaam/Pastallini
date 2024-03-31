@@ -9,31 +9,35 @@
 </head>
 <body>
     <header>
-        <button id="volver">Regresar</button>
+        <button class="volver">Regresar</button>
         <section>
-            <h1 class="titulo">Carrito de compras</h1>
+            <h1 class="titulo"><span class="rojo">Carrito </span><span class="amarillo">de </span><span class="verde">compras</span></h1>
         </section>
         <img src="imagenes/logo.png" alt="logo" class="carrito">
     </header>
-    <main>
-        <ul id="compras"></ul>
-        <p id="mensajeConfirmacion" style="display:none;">Tu pedido ha sido enviado con exito!!</p>
-    </main>
-    <aside class="datosPersonales">
-        <h2>datosPersonales</h2>
-        <form action="index.html" method="post">
-            <h4>A continuación, indique sus datos personales para poder enviarle el pedido.</h4>    
-            <ul>
-                <li><label for="nombre">Nombre: </label>
+    <div class="contenido">
+        <main>
+            <ul id="platosCarrito"></ul>
+        </main>
+        <aside class="datosPersonales">
+            <h2>Datos personales</h2>
+            <form action="index.html" method="get">
+                <p>A continuación, indique sus datos personales para poder enviarle el pedido.</p>    
+                <ul>
+                    <li><label for="nombre">Nombre: </label>
                         <input class="input" type="text" name="nombre" id="nombre" placeholder="Su nombre y apellidos"></li>
-                <li><label for="telefono">teléfono: </label>
-                    <input class="input" type="number" name="telefono" id="phone" placeholder="Su teléfono"></li>
-                <li><label for="direccion">Dirección:</label>
-                    <textarea class="input" placeholder="Write your contact message here" name="dirección" required></textarea></li>
-            </ul>
-            <button id="send" type="submit" class="pedido" onclick="pedir()">Hacer pedido</button>
-        </form>
-    </aside>
+                    <li><label for="telefono">teléfono: </label>
+                        <input class="input" type="number" name="telefono" id="telefono" placeholder="Su teléfono"></li>
+                    <li><label for="direccion">Dirección:</label>
+                        <textarea class="input" placeholder="Escriba su dirección aquí" name="direccion" id="direccion"></textarea></li>
+                </ul>
+                <p class="bold">Total a pagar: $<span id="total"></span></p>
+                <button type="reset" class="limpiar" onclick="limpiar()">Limpiar</button>
+                <button id="send" type="submit" class="pedido" onclick="pedir()">Hacer pedido</button>
+                <p id="mensajeConfirmacion" style="display:none;">¡Tu pedido ha sido enviado con éxito!</p>
+            </form>
+        </aside>
+    </div>
     <footer>
         <img src="imagenes/logo.png" alt="logo restaurante" class="logo"/>
     </footer>

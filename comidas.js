@@ -1,93 +1,288 @@
 // CARRITO
-document.getElementById("agregarCarrito").addEventListener("click", mostrarData,true);
-const carrito = [];
-//localStorage.clear();
+let dataApi = [];
+console.log(localStorage.length);
+let pedido = {};
+let infoProductos = {};
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('volver').addEventListener('click', function() {
-        window.history.back();
-    });
+//DOM content es un escuchador de eventos que espera a que el DOM esté listo
+window.addEventListener("DOMContentLoaded", () => {
+    cargarData();
+    let irCarrito = document.getElementsByClassName("carrito");
+    let volverPag = document.getElementsByClassName('volver');
+    if (irCarrito) {
+        for (let i = 0; i < irCarrito.length; i++) {
+            irCarrito[i].addEventListener("click", llevarCarrito,false);
+        }
+    }
+    if (volverPag) {
+        for (let i = 0; i < volverPag.length; i++) {
+            volverPag[i].addEventListener("click", volver,false);
+        }
+    }
 });
 
-function mostrarPlato(data){
-    info = {
-        ID: data.food[0]?.ID ?? "",
-        Nombre: data.food[0]?.Nombre ?? ""
-        /*Precio: data.food[0]?.Costo ?? ""*/
-    };
-
-        /*let ingredientes = "";
-        let instancia1 = {};
-        let instancia2 = {};
-        for (let i = 1; i <= 15; i++) {
-            elemento = data.drinks[0]?.[`strIngredient${i}`] ?? "";
-            cantidad = data.drinks[0]?.[`strMeasure${i}`] ?? "";
-            instancia1["strIngredient"+`${i}`] = elemento;
-            instancia2["strMeasure"+`${i}`] = cantidad;
-            if (elemento != "") {
-                //console.log(elemento);
-                //console.log(cantidad);
-                ingredientes += `${cantidad} ${elemento} - `;
-            }
-            //console.log(ingredientes)
-        }
-
-        contenido.innerHTML =  `
-            <img alt="cocktail" id="imagenCocktail" src="${data.drinks[0].strDrinkThumb}"/>
-            <div class="informacionCocktail">
-                <p><span class="bold">ID:</span> ${data.drinks[0]?.idDrink ?? ""}</p>
-                <p><span class="bold">Name:</span> ${data.drinks[0]?.strDrink ?? ""}</p>
-                <p><span class="bold">Category:</span> ${data.drinks[0]?.strCategory ?? ""}</p>
-                <p><span class="bold">Ingredients:</span> ${ingredientes}</p>
-                <p><span class="bold">Preparation:</span> ${data.drinks[0]?.strInstructions ?? ""}</p>
-            </div>
-        `;*/
+// Tener en cuenta el historial para retornar a la página anterior 
+function volver() {
+    window.history.back();
 }
 
-function mostrarData (){
+// Redirigir desde la imágen del carrito al carrito de compras
+function llevarCarrito(){
+    window.location.href = "carrito.html";
+}
+
+function cargarData(){
     fetch("https://script.googleusercontent.com/macros/echo?user_content_key=aKH9kRl9QuVpiP0Bji5nUq7lD83LZezLxfanTB53qEr65N2UyG8uIzLqTseLc69Hy464Uf0QwJDas06Ni-2twIQg8khB3G1em5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnOl3ck_PTNYvy0t0nrORX1szhy8PZaJWULmuKVUdC8M4LxhQi662aDHj3dD788xtfCSY1bn1xpOhWmWOLiqvWQWyipUbFI23ldz9Jw9Md8uu&lib=MbWhOQopuA1SJavcvdXFcMip12Db7KcaW")
         .then((response) => response.json())
-        .then((data) => mostrarPlato(data))
+        .then((datos) => mostrarPlato(datos))
         .catch((error) => {
-            throw new Error("Error " + response.status + " al llamar al API: " + response.statusText + ": " + error);
+            //throw new Error("Error " + response.status + " al llamar al API: " + response.statusText + ": " + error);
+            console.log("Error: " + error);
         })
-    cargando();
-    }   
+}   
 
-function agregarFav(){
-    if (carrito.includes(info)) {
-        //aumentar cantidad
-        return;
-    } else {
-        cocktailFavorite.push(info);
-        localStorage.setItem(JSON.stringify(info.ID), JSON.stringify(info.Nombre));
+function mostrarPlato(datos){
+    console.log(datos.data);
+    dataApi = datos.data;
+
+    if (window.location.href.includes("carrito.html")) {
+        console.log(localStorage.length);
+        mostrarCarrito();
     }
-    /*console.log(cocktailFavorite);*/
-    mostrarFavoritos();
+
+    // MOSTRAR PRODUCTOS
+    if (window.location.href.includes("entradas.html")) {
+        let entradas = document.getElementById("entradas");
+        entradas.innerHTML = "";
+    } else if (window.location.href.includes("platosFuertes.html")) {
+        let platosFuertes = document.getElementById("platosFuertes");
+        platosFuertes.innerHTML = "";
+    } else if (window.location.href.includes("bebidas.html")) {
+        let bebidas = document.getElementById("bebidas");
+        bebidas.innerHTML = "";
+    } else if (window.location.href.includes("postres.html")) {
+        let postres = document.getElementById("postres");
+        postres.innerHTML = "";
+    }
+
+    for (let i = 0; i < dataApi.length; i++) {
+        infoProductos = {
+            ID: dataApi[i]?.ID ?? "",
+            Precio: dataApi[i]?.Costo ?? "",
+            Cantidad : dataApi[i]?.Cantidad ?? ""
+        };
+        const platoHtml = `
+        <li>
+            <h2 class="tituloFood">${dataApi[i]?.Nombre ?? ""}</h2>
+            <div>
+                <img alt="producto_${i}" class="imgComida" src="${dataApi[i]?.Imagen ?? ""}"/>
+                <section>
+                    <p><span class="bold">ID:</span> ${dataApi[i]?.ID ?? ""}</p>
+                    <p class="descripcion">${dataApi[i]?.Descripcion ?? ""}</p>
+                    <p class="cost">$${dataApi[i]?.Costo ?? ""}</p>
+                    <button class="agregarCarrito" onclick="agregarCarrito(${dataApi[i]?.ID})">Añadir al carrito</button>
+                </section>
+            </div>
+        </li>
+        `;
+
+        console.log(dataApi[i]?.Tipo);
+    
+        switch (dataApi[i]?.Tipo) {
+            case "Entrada":
+                if (window.location.href.includes("entradas.html")) {
+                    entradas.innerHTML += platoHtml;
+                }
+                break;
+            case "Plato principal":
+                if (window.location.href.includes("platosFuertes.html")) {
+                    platosFuertes.innerHTML += platoHtml;
+                }
+                break;
+            case "Bebida":
+                if (window.location.href.includes("bebidas.html")) {
+                    bebidas.innerHTML += platoHtml;
+                }
+                break;
+            case "Postre":
+                if (window.location.href.includes("postres.html")) {
+                    postres.innerHTML += platoHtml;
+                }
+                break;
+            default:
+                console.error("La categoría no existe: " + dataApi[i]?.Tipo);
+                break;
+        };
+    }
 }
 
+function agregarCarrito(id){
+    let index = 0;
+    for (let i = 0; i < dataApi.length; i++) {
+        if (id === dataApi[i].ID) {
+            index = i;
+            dataApi[i].Cantidad = 1;
+            break;
+        }
+    }
+    let yaHay = false;
+    console.log(localStorage.length);
+    if (localStorage.length > 0) {
+        for (let j = 0; j < dataApi.length; j++) {
+            if (j === id && localStorage.getItem(j) !== null) {
+                cambiarCantidad(id, 1);
+                yaHay = true;
+                alert("¡Se ha actualizado la cantidad en el carrito!");
+                break;
+            }
+        }
+    }
+    if (yaHay === false) {
+        let info = {Precio: dataApi[index].Costo, Cantidad: dataApi[index].Cantidad};
+        localStorage.setItem(id, JSON.stringify(info));
+        alert("¡Se ha añadido al carrito!");
+    }
+    console.log(localStorage.length);
+    console.log(id, localStorage.getItem(id));
+}
 
-//ANTES:
+function mostrarCarrito(){
+    if (window.location.href.includes("carrito.html")) {
+        console.log(localStorage.getItem(5));
+        console.log(localStorage.length);
 
-//tiene en cuenta el historial para retornar a la pagina anterior
-//Dom content es un escuchador de eventos que espera a que el DOM este listo7
+        const contenido = document.getElementById("platosCarrito");
+        let total = document.getElementById("total");
+        console.log(contenido);
+        contenido.innerHTML = "";
+        if (localStorage.length > 0) {
+            for (let i = 0; i < localStorage.length; i++) {
+                let clave = localStorage.key(i);
+                let valor = localStorage.getItem(clave);
+                console.log(clave + ": " + valor);
+                const platoHtml = `  
+                    <li>
+                        <div>
+                            <h3>ID: ${JSON.parse(clave)}</h3>
+                            <p><span class="bold">Valor unitario:</span> $${JSON.parse(valor).Precio ?? 0}</p>
+                            <p class="bold">Cantidad:</p>
+                            <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, -1)">-</button>
+                            <input class="cantidad-carrito" type="number" name="cantidad_${JSON.parse(clave)}" value="${JSON.parse(valor).Cantidad ?? 1}" readonly>
+                            <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, 1)">+</button>
+                            <button class="borrar-plato" onclick="borrarPlato(${JSON.parse(clave) ?? 0})">X</button>
+                        </div>
+                    </li>
+                    `;
+                contenido.innerHTML += platoHtml;
+            }
+            total.innerHTML = `${calcularTotal()}`;
+        }
+    }
+}
 
-let lista = [];
+function cambiarCantidad(id, cantidad) {
+    console.log(id, cantidad);
+    let plato = {};
+    for (let j = 0; j < dataApi.length; j++) {
+        if (j === id) {
+            console.log(localStorage.getItem(j));
+            plato = JSON.parse(localStorage.getItem(j));
+            break;
+        }
+    }
+    console.log(plato);
+    if (plato) {
+        if ((plato.Cantidad + cantidad) <= 0) {
+            borrarPlato(id);
+        } else {
+            plato.Cantidad += cantidad;
+            let info = {Precio: plato.Precio, Cantidad: plato.Cantidad};
+            localStorage.setItem(id, JSON.stringify(info));
+        }
+        mostrarCarrito();
+    }
+}
 
-//redirigir desde la imagen del carrito al carrito de compras
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('carrito').addEventListener('click', function() {
-        window.location.href = 'carrito.html';
-    });
-});
-//enviar
+function calcularTotal() {
+    let total = 0;
+    if (localStorage.length > 0) {
+        for (let i = 0; i < dataApi.length; i++) {
+            if (localStorage.getItem(i) !== null) {
+                total += JSON.parse(localStorage.getItem(i)).Precio * JSON.parse(localStorage.getItem(i)).Cantidad;
+            }
+        }
+    }
+    return total;
+}
+
+function borrarPlato(id) {
+    localStorage.removeItem(id);
+    mostrarCarrito();
+}
+
+// Limpiar la lista de compras
+function limpiar() {
+    document.getElementById('nombre').value = '';
+    document.getElementById('telefono').value = '';
+    document.getElementById('direccion').value = '';
+    document.getElementById('total').innerHTML = 0;
+    localStorage.clear();
+    mostrarCarrito();
+}
+
+// Enviar pedido
 function pedir() {
+    let listaProductos = [];
+    for (let i = 0; i < dataApi.length; i++) {
+        if (localStorage.getItem(i) !== null) {
+            let producto = {
+                ID: i,
+                Precio: JSON.parse(localStorage.getItem(i)).Precio,
+                Cantidad: JSON.parse(localStorage.getItem(i)).Cantidad
+            };
+            listaProductos.push(producto);
+        }
+    }
+    let nombre = document.getElementById('nombre').value;
+    let telefono = document.getElementById('telefono').value;
+    let direccion = document.getElementById('direccion').value;
+    if (nombre === '' || telefono === '' || direccion === '') {
+        alert('¡Por favor, diligencie todos los campos!');
+        return;
+    } else {
+        const data = {
+            Nombre: nombre,
+            Telefono: telefono,
+            Direccion: direccion,
+            Lista: listaProductos,
+            Total: document.getElementById('total').innerHTML
+        };
+        console.log(data);
+        postJSON(data);
+    }
+
     // Borra el contenido de la lista de compras
-    document.getElementById('compras').innerHTML = '';
+    if (window.location.href.includes("carrito.html")) {
+        document.getElementById('platosCarrito').innerHTML = '';
+    };
 
     // Muestra el mensaje de confirmación
     document.getElementById('mensajeConfirmacion').style.display = 'block';
 }
 
-
-
+// Pasar pedido en formato JSON
+/*function postJSON(data) {
+    try {
+        const response = await fetch('', {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+            },
+        });
+        const result = await response.json();
+        console.log("Success: " + result);
+    } catch (error) {
+        console.log("Error: " + error);
+    }
+}*/
