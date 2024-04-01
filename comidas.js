@@ -31,6 +31,16 @@ function llevarCarrito(){
     window.location.href = "carrito.html";
 }
 
+// Barra de carga
+function cargando(contenido){
+    contenido.innerHTML =  `
+        <div class="pantCarga">
+            <h4 class="bold cargando">Cargando...</h4>
+            <progress></progress>
+        </div>
+    `; 
+}
+
 function cargarData(){
     fetch("https://script.googleusercontent.com/macros/echo?user_content_key=aKH9kRl9QuVpiP0Bji5nUq7lD83LZezLxfanTB53qEr65N2UyG8uIzLqTseLc69Hy464Uf0QwJDas06Ni-2twIQg8khB3G1em5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnOl3ck_PTNYvy0t0nrORX1szhy8PZaJWULmuKVUdC8M4LxhQi662aDHj3dD788xtfCSY1bn1xpOhWmWOLiqvWQWyipUbFI23ldz9Jw9Md8uu&lib=MbWhOQopuA1SJavcvdXFcMip12Db7KcaW")
         .then((response) => response.json())
@@ -39,9 +49,28 @@ function cargarData(){
             //throw new Error("Error " + response.status + " al llamar al API: " + response.statusText + ": " + error);
             console.log("Error: " + error);
         })
-}   
+    if (window.location.href.includes("entradas.html")) {
+        let entradas = document.getElementById("entradas");
+        cargando(entradas);
+    } else if (window.location.href.includes("platosFuertes.html")) {
+        let platosFuertes = document.getElementById("platosFuertes");
+        cargando(platosFuertes);
+    } else if (window.location.href.includes("bebidas.html")) {
+        let bebidas = document.getElementById("bebidas");
+        cargando(bebidas);
+    } else if (window.location.href.includes("postres.html")) {
+        let postres = document.getElementById("postres");
+        cargando(postres);
+    } else if (window.location.href.includes("carrito.html")) {
+        if (localStorage.length > 0) {
+            let contenido = document.getElementById("platosCarrito");
+            cargando(contenido);
+        }
+    }   
+}
 
 function mostrarPlato(datos){
+    setTimeout(() => {
     console.log(datos.data);
     dataApi = datos.data;
 
@@ -55,7 +84,6 @@ function mostrarPlato(datos){
         let entradas = document.getElementById("entradas");
         entradas.innerHTML = "";
     } else if (window.location.href.includes("platosFuertes.html")) {
-        let platosFuertes = document.getElementById("platosFuertes");
         platosFuertes.innerHTML = "";
     } else if (window.location.href.includes("bebidas.html")) {
         let bebidas = document.getElementById("bebidas");
@@ -114,6 +142,7 @@ function mostrarPlato(datos){
                 break;
         };
     }
+    }, 1000);
 }
 
 function agregarCarrito(id){
@@ -148,35 +177,34 @@ function agregarCarrito(id){
 
 function mostrarCarrito(){
     if (window.location.href.includes("carrito.html")) {
-        console.log(localStorage.getItem(5));
-        console.log(localStorage.length);
-
-        const contenido = document.getElementById("platosCarrito");
+        let contenido = document.getElementById("platosCarrito");
         let total = document.getElementById("total");
         console.log(contenido);
-        contenido.innerHTML = "";
-        if (localStorage.length > 0) {
-            for (let i = 0; i < localStorage.length; i++) {
-                let clave = localStorage.key(i);
-                let valor = localStorage.getItem(clave);
-                console.log(clave + ": " + valor);
-                const platoHtml = `  
-                    <li>
-                        <div>
-                            <h3>ID: ${JSON.parse(clave)}</h3>
-                            <p><span class="bold">Valor unitario:</span> $${JSON.parse(valor).Precio ?? 0}</p>
-                            <p class="bold">Cantidad:</p>
-                            <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, -1)">-</button>
-                            <input class="cantidad-carrito" type="number" name="cantidad_${JSON.parse(clave)}" value="${JSON.parse(valor).Cantidad ?? 1}" readonly>
-                            <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, 1)">+</button>
-                            <button class="borrar-plato" onclick="borrarPlato(${JSON.parse(clave) ?? 0})">X</button>
-                        </div>
-                    </li>
-                    `;
-                contenido.innerHTML += platoHtml;
+        setTimeout(() => {
+            contenido.innerHTML = "";
+            if (localStorage.length > 0) {
+                for (let i = 0; i < localStorage.length; i++) {
+                    let clave = localStorage.key(i);
+                    let valor = localStorage.getItem(clave);
+                    console.log(clave + ": " + valor);
+                    const platoHtml = `  
+                        <li>
+                            <div>
+                                <h3>ID: ${JSON.parse(clave)}</h3>
+                                <p><span class="bold">Valor unitario:</span> $${JSON.parse(valor).Precio ?? 0}</p>
+                                <p class="bold">Cantidad: ${JSON.parse(valor).Cantidad ?? 1}</p>
+                                <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, -1)">-</button>
+                                <input class="cantidad-carrito" type="number" name="cantidad_${JSON.parse(clave)}" value="${JSON.parse(valor).Cantidad ?? 1}" readonly>
+                                <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, 1)">+</button>
+                                <button class="borrar-plato" onclick="borrarPlato(${JSON.parse(clave) ?? 0})">X</button>
+                            </div>
+                        </li>
+                        `;
+                    contenido.innerHTML += platoHtml;
+                }
+                total.innerHTML = `${calcularTotal()}`;
             }
-            total.innerHTML = `${calcularTotal()}`;
-        }
+        }, 1000);
     }
 }
 
@@ -265,15 +293,17 @@ function pedir() {
     if (window.location.href.includes("carrito.html")) {
         document.getElementById('platosCarrito').innerHTML = '';
     };
+    limpiar();
 
     // Muestra el mensaje de confirmación
     document.getElementById('mensajeConfirmacion').style.display = 'block';
+    alert('¡Tu pedido ha sido enviado con éxito!');
 }
 
 // Pasar pedido en formato JSON
-/*function postJSON(data) {
+async function postJSON(data) {
     try {
-        const response = await fetch('', {
+        const response = await fetch('https://script.googleusercontent.com/macros/echo?user_content_key=aKH9kRl9QuVpiP0Bji5nUq7lD83LZezLxfanTB53qEr65N2UyG8uIzLqTseLc69Hy464Uf0QwJDas06Ni-2twIQg8khB3G1em5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnOl3ck_PTNYvy0t0nrORX1szhy8PZaJWULmuKVUdC8M4LxhQi662aDHj3dD788xtfCSY1bn1xpOhWmWOLiqvWQWyipUbFI23ldz9Jw9Md8uu&lib=MbWhOQopuA1SJavcvdXFcMip12Db7KcaW', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -285,4 +315,4 @@ function pedir() {
     } catch (error) {
         console.log("Error: " + error);
     }
-}*/
+}

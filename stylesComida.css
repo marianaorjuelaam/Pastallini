@@ -142,3 +142,20 @@ footer {
     cursor: pointer;
     border: none;
 }
+
+.pantCarga {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    background-color: #174408;
+    border-radius: 1rem;
+    max-height: 50%;
+
+    & .cargando {
+        font-weight: bolder;
+        color: #FFFFFF;
+        text-shadow: 5px 2px #3F8C25;
+    }
+}
