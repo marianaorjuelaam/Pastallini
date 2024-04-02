@@ -203,7 +203,7 @@ function mostrarCarrito() {
                         <li>
                             <div>
                                 <h3>ID: ${clave}</h3>
-                                <h3>${JSON.parse(valor).Nombre}</h3>
+                                <h3 class="tituloFood">${JSON.parse(valor).Nombre}</h3>
                                 <input type="hidden" name="id_producto_carrito_${(clave)}" value="${(clave)}" readonly>
                                 <p><span class="bold">Valor unitario:</span> $${JSON.parse(valor).Precio ?? 0}</p>
                                 <input type="hidden" name="precio_producto_carrito_${(clave)}" value=${JSON.parse(valor).Precio ?? 0}" readonly>

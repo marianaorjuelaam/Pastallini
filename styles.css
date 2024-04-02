@@ -176,3 +176,9 @@ li {
 .carrito {
     cursor: pointer;
 }
+
+
+.tituloFood {
+    font-size: larger;
+    font-family: lobster;
+}
