@@ -199,15 +199,15 @@ function mostrarCarrito() {
                     const platoHtml = `  
                         <li>
                             <div>
-                                <h3>ID: ${JSON.parse(clave)}</h3>
-                                <input type="hidden" name="id_producto_carrito_${JSON.parse(clave)}" value="${JSON.parse(clave)}" readonly>
+                                <h3>ID: ${clave}</h3>
+                                <input type="hidden" name="id_producto_carrito_${(clave)}" value="${(clave)}" readonly>
                                 <p><span class="bold">Valor unitario:</span> $${JSON.parse(valor).Precio ?? 0}</p>
-                                <input type="hidden" name="precio_producto_carrito_${JSON.parse(clave)}" value=${JSON.parse(valor).Precio ?? 0}" readonly>
+                                <input type="hidden" name="precio_producto_carrito_${(clave)}" value=${JSON.parse(valor).Precio ?? 0}" readonly>
                                 <p class="bold">Cantidad: ${JSON.parse(valor).Cantidad ?? 1}</p>
-                                <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, -1)">-</button>
-                                <input class="cantidad-carrito" type="number" name="cantidad_${JSON.parse(clave)}" value="${JSON.parse(valor).Cantidad ?? 1}" readonly>
-                                <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, 1)">+</button>
-                                <button class="borrar-plato" onclick="borrarPlato(${JSON.parse(clave) ?? 0})">X</button>
+                                <button type="button" onclick="cambiarCantidad(${(clave) ?? 0}, -1)">-</button>
+                                <input class="cantidad-carrito" type="number" name="cantidad_${(clave)}" value="${JSON.parse(valor).Cantidad ?? 1}" readonly>
+                                <button type="button" onclick="cambiarCantidad(${(clave) ?? 0}, 1)">+</button>
+                                <button class="borrar-plato" onclick="borrarPlato(${(clave) ?? 0})">X</button>
                             </div>
                         </li>
                     `;
