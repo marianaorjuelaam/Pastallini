@@ -172,3 +172,7 @@ li {
         text-shadow: 5px 2px #3F8C25;
     }
 }
+
+.carrito {
+    cursor: pointer;
+}

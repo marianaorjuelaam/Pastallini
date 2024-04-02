@@ -10,8 +10,14 @@ window.addEventListener("DOMContentLoaded", () => {
     let irCarrito = document.getElementsByClassName("carrito");
     let volverPag = document.getElementsByClassName('volver');
     if (irCarrito) {
-        for (let i = 0; i < irCarrito.length; i++) {
-            irCarrito[i].addEventListener("click", llevarCarrito,false);
+        if (window.location.href.includes("carrito.html")) {
+            for (let i = 0; i < irCarrito.length; i++) {
+                irCarrito[i].addEventListener("click", llevarIndex,false);
+            }
+        } else {
+            for (let i = 0; i < irCarrito.length; i++) {
+                irCarrito[i].addEventListener("click", llevarCarrito,false);
+            }
         }
     }
     if (volverPag) {
@@ -29,6 +35,10 @@ function volver() {
 // Redirigir desde la imágen del carrito al carrito de compras
 function llevarCarrito(){
     window.location.href = "carrito.html";
+}
+
+function llevarIndex(){
+    window.location.href = "index.html";
 }
 
 // Barra de carga
@@ -191,10 +201,12 @@ function mostrarCarrito(){
                         <li>
                             <div>
                                 <h3>ID: ${JSON.parse(clave)}</h3>
+                                <input type="hidden" name="id_producto_carrito_${JSON.parse(clave)}" value="${JSON.parse(clave)}" readonly>
                                 <p><span class="bold">Valor unitario:</span> $${JSON.parse(valor).Precio ?? 0}</p>
+                                <input type="hidden" name="precio_producto_carrito_${JSON.parse(clave)}" value="${JSON.parse(valor).Precio ?? 0}" readonly>
                                 <p class="bold">Cantidad: ${JSON.parse(valor).Cantidad ?? 1}</p>
                                 <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, -1)">-</button>
-                                <input class="cantidad-carrito" type="number" name="cantidad_${JSON.parse(clave)}" value="${JSON.parse(valor).Cantidad ?? 1}" readonly>
+                                <input class="cantidad-carrito" type="number" name="cantidad_producto_carrito_${JSON.parse(clave)}" value="${JSON.parse(valor).Cantidad ?? 1}" readonly>
                                 <button type="button" onclick="cambiarCantidad(${JSON.parse(clave) ?? 0}, 1)">+</button>
                                 <button class="borrar-plato" onclick="borrarPlato(${JSON.parse(clave) ?? 0})">X</button>
                             </div>
@@ -202,7 +214,7 @@ function mostrarCarrito(){
                         `;
                     contenido.innerHTML += platoHtml;
                 }
-                total.innerHTML = `${calcularTotal()}`;
+                total.value = `${calcularTotal()}`;
             }
         }, 1000);
     }
@@ -253,7 +265,7 @@ function limpiar() {
     document.getElementById('nombre').value = '';
     document.getElementById('telefono').value = '';
     document.getElementById('direccion').value = '';
-    document.getElementById('total').innerHTML = 0;
+    document.getElementById('total').value = '0';
     localStorage.clear();
     mostrarCarrito();
 }
@@ -268,12 +280,14 @@ function pedir() {
                 Precio: JSON.parse(localStorage.getItem(i)).Precio,
                 Cantidad: JSON.parse(localStorage.getItem(i)).Cantidad
             };
+            //let producto = "{ID: " + i + ", Precio: " + JSON.parse(localStorage.getItem(i)).Precio + ", Cantidad: " + JSON.parse(localStorage.getItem(i)).Cantidad + "}";
             listaProductos.push(producto);
         }
     }
     let nombre = document.getElementById('nombre').value;
     let telefono = document.getElementById('telefono').value;
     let direccion = document.getElementById('direccion').value;
+    let total = document.getElementById('total').value;
     if (nombre === '' || telefono === '' || direccion === '') {
         alert('¡Por favor, diligencie todos los campos!');
         return;
@@ -283,7 +297,7 @@ function pedir() {
             Telefono: telefono,
             Direccion: direccion,
             Lista: listaProductos,
-            Total: document.getElementById('total').innerHTML
+            Total: total
         };
         console.log(data);
         postJSON(data);
@@ -301,13 +315,13 @@ function pedir() {
 }
 
 // Pasar pedido en formato JSON
-async function postJSON(data) {
+async function postJSON(datos) {
     try {
-        const response = await fetch('https://script.googleusercontent.com/macros/echo?user_content_key=aKH9kRl9QuVpiP0Bji5nUq7lD83LZezLxfanTB53qEr65N2UyG8uIzLqTseLc69Hy464Uf0QwJDas06Ni-2twIQg8khB3G1em5_BxDlH2jW0nuo2oDemN9CCS2h10ox_1xSncGQajx_ryfhECjZEnOl3ck_PTNYvy0t0nrORX1szhy8PZaJWULmuKVUdC8M4LxhQi662aDHj3dD788xtfCSY1bn1xpOhWmWOLiqvWQWyipUbFI23ldz9Jw9Md8uu&lib=MbWhOQopuA1SJavcvdXFcMip12Db7KcaW', {
+        const response = await fetch('https://script.google.com/macros/s/AKfycbxmgeoxpORC_J3i74H-n0U6_Jj_C9_hPiEuAblooFRhobCJ4NiSIilF0VKkOj-tp4kjNw/exec', {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(datos),
             headers: {
-                'Content-type': 'application/json; charset=UTF-8',
+                'Content-type': 'application/json',
             },
         });
         const result = await response.json();
