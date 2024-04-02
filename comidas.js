@@ -271,6 +271,7 @@ function limpiar() {
     document.getElementById('total').innerHTML = 0;
     localStorage.clear();
     mostrarCarrito();
+    
 }
 
 // Enviar pedido
