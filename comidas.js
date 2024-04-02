@@ -177,8 +177,11 @@ function agregarCarrito(id) {
         }
     }
     if (yaHay === false) {
-        let info = { Precio: dataApi[index].Costo, Cantidad: dataApi[index].Cantidad };
+        let info = { Precio: dataApi[index].Costo, Cantidad: dataApi[index].Cantidad, Nombre: dataApi[index].Nombre };
+
+        console.log(info);
         localStorage.setItem(id, JSON.stringify(info));
+
         alert("¡Se ha añadido al carrito!");
     }
     console.log(localStorage.length);
@@ -200,6 +203,7 @@ function mostrarCarrito() {
                         <li>
                             <div>
                                 <h3>ID: ${clave}</h3>
+                                <h3>${JSON.parse(valor).Nombre}</h3>
                                 <input type="hidden" name="id_producto_carrito_${(clave)}" value="${(clave)}" readonly>
                                 <p><span class="bold">Valor unitario:</span> $${JSON.parse(valor).Precio ?? 0}</p>
                                 <input type="hidden" name="precio_producto_carrito_${(clave)}" value=${JSON.parse(valor).Precio ?? 0}" readonly>
@@ -235,7 +239,7 @@ function cambiarCantidad(id, cantidad) {
             borrarPlato(id);
         } else {
             plato.Cantidad += cantidad;
-            let info = { Precio: plato.Precio, Cantidad: plato.Cantidad };
+            let info = { Precio: plato.Precio, Cantidad: plato.Cantidad, Nombre: plato.Nombre };
             localStorage.setItem(id, JSON.stringify(info));
         }
         mostrarCarrito();
