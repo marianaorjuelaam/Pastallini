@@ -21,7 +21,7 @@
         </main>
         <aside class="datosPersonales">
             <h2>Datos personales</h2>
-            <form action="index.html" method="post">
+            <form action="https://script.google.com/macros/s/AKfycbxmgeoxpORC_J3i74H-n0U6_Jj_C9_hPiEuAblooFRhobCJ4NiSIilF0VKkOj-tp4kjNw/exec" method="post">
                 <p>A continuación, indique sus datos personales para poder enviarle el pedido.</p>    
                 <ul>
                     <li><label for="nombre">Nombre: </label>
@@ -31,10 +31,11 @@
                     <li><label for="direccion">Dirección:</label>
                         <textarea class="input" placeholder="Escriba su dirección aquí" name="direccion" id="direccion"></textarea></li>
                 </ul>
-                <p class="bold">Total a pagar: $<span id="total"></span></p>
+                <p class="bold">Total a pagar: $<input type="number" id="total" value="0" readonly></p>
                 <button type="reset" class="limpiar" onclick="limpiar()">Limpiar</button>
                 <button id="send" type="submit" class="pedido" onclick="pedir()">Hacer pedido</button>
                 <p id="mensajeConfirmacion" style="display:none;">¡Tu pedido ha sido enviado con éxito!</p>
+                <ul id="platosCarrito" style="display: none;"></ul>
             </form>
         </aside>
     </div>
