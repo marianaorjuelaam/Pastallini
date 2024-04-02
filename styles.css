@@ -157,3 +157,22 @@ li {
     font-size: large;
     text-shadow: 1px 2px black;
 }
+
+.pantCarga {
+    align-items: center;
+    background-color: #174408;
+    border-radius: 1rem;
+    padding: 20%;
+    text-shadow: 1px 2px #000000;
+
+    & h4 {
+        font-size: large;
+        font-weight: bolder;
+        color: #FFFFFF;
+        text-shadow: 5px 2px #3F8C25;
+    }
+}
+
+.carrito {
+    cursor: pointer;
+}
